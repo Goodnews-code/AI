@@ -203,25 +203,32 @@ function mdToHtml(md) {
   return html.trim();
 }
 
-// Calls Google Gemini API for direct conversational AI tutoring
+// Calls Google Gemini API for direct conversational AI tutoring & general query answering
 async function askGemini(userPrompt, currentDay, dayContent) {
   if (!GEMINI_API_KEY) {
     return `⚠️ <b>AI Tutor Offline:</b>\n\nTo activate conversational AI, enter your <code>GEMINI_API_KEY</code> at the top of the script file! (Free keys at <a href="https://aistudio.google.com">Google AI Studio</a>)`;
   }
 
   const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent?key=${GEMINI_API_KEY}`;
-  const systemInstruction = `You are Antigravity, a supportive, elite AI coding tutor. The user is on Day ${currentDay} of a 1-week TypeScript + React + Tailwind CSS crash course.
+  
+  const systemInstruction = `You are Antigravity, an elite, multi-disciplinary AI Tutor, coding coach, and software engineering companion. 
+The user is currently studying a 1-week TypeScript + React + Tailwind CSS crash course (currently on Day ${currentDay}).
 Today's syllabus:
 ${dayContent}
 
-Keep your responses concise, structured, and easy to understand.
-Use HTML tags compatible with Telegram: <b>bold</b>, <i>italic</i>, <code>code</code>, <pre>code blocks</pre>, and <a href="url">links</a>.
-Do NOT use markdown (like **, *, \`\`, \`\`\`) in your response; always output clean, well-formatted Telegram HTML instead.
-Help the user troubleshoot, answer questions about today's concepts, explain the videos, and review practice exercises. Be a supportive coach.`;
+CRITICAL CAPABILITIES:
+1. **General & Tech Knowledge**: You can answer general questions on any topic, explain complex engineering concepts, and troubleshoot system code.
+2. **Deep Research & Accuracy**: You have access to Google Search. Perform thorough research to ensure your facts, instructions, and code blocks represent the absolute highest modern standards.
+3. **Speed & Readability**: Keep your responses concise, highly structured, and fast to read. Avoid long filler text.
+4. **HTML Formatting Terminology**: 
+   - Use HTML tags compatible with Telegram: <b>bold</b>, <i>italic</i>, <code>code</code>, <pre>code blocks</pre>, and <a href="url">links</a>.
+   - Do NOT use markdown symbols (like **, *, \`\`, \`\`\`) in your response; always output clean, well-formatted Telegram HTML instead.
+   - If you perform a Google Search, embed your source citations naturally as inline HTML links (e.g. <a href="source-url">source title</a> or <a href="source-url">[source]</a>) rather than raw URLs or unlinked brackets.`;
 
   const requestBody = {
     contents: [{ parts: [{ text: userPrompt }] }],
-    systemInstruction: { parts: [{ text: systemInstruction }] }
+    systemInstruction: { parts: [{ text: systemInstruction }] },
+    tools: [{ google_search: {} }] // 🌐 Enable Google Search Grounding for thorough research!
   };
 
   try {
