@@ -209,7 +209,7 @@ async function askGemini(userPrompt, currentDay, dayContent) {
     return `⚠️ <b>AI Tutor Offline:</b>\n\nTo activate conversational AI, enter your <code>GEMINI_API_KEY</code> at the top of the script file! (Free keys at <a href="https://aistudio.google.com">Google AI Studio</a>)`;
   }
 
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`;
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent?key=${GEMINI_API_KEY}`;
   const systemInstruction = `You are Antigravity, a supportive, elite AI coding tutor. The user is on Day ${currentDay} of a 1-week TypeScript + React + Tailwind CSS crash course.
 Today's syllabus:
 ${dayContent}
