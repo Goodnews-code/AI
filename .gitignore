@@ -1,0 +1,12 @@
+# Sensitive credentials
+config.json
+.env
+
+# Logs and state
+progress.json
+*.log
+
+# Dependencies and system files
+node_modules/
+.DS_Store
+Thumbs.db

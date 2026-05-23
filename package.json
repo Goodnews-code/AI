@@ -1,0 +1,16 @@
+{
+  "name": "telegram-ai-tutor-bot",
+  "version": "1.0.0",
+  "description": "Daily Telegram AI Tutor & Reminder Bot",
+  "main": "telegram_notifier.js",
+  "scripts": {
+    "start": "node telegram_notifier.js",
+    "test": "node telegram_notifier.js --test"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {},
+  "author": "Antigravity",
+  "license": "MIT"
+}
