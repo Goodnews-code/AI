@@ -470,7 +470,7 @@ async function runLocalInteractionLoop(progress) {
             const userText = msg.text ? msg.text.trim().toLowerCase() : '';
             console.log(`Received message: "${msg.text}"`);
             
-            if (userText === 'done' || userText.includes('finish') || userText.includes('complete')) {
+            if (userText === 'done' || userText === 'complete' || userText === 'finished') {
               await sendMessage(`<b>🌟 Outstanding!</b>\n\nFantastic job completing <b>Day ${progress.currentDay}</b>! I've logged this as complete. Get some rest—tomorrow at 9:00 AM we unlock the next day! 🚀`);
               
               progress.status = 'completed';
@@ -631,7 +631,7 @@ async function pollRepliesAndNudgeCloud() {
           const userText = msg.text ? msg.text.trim().toLowerCase() : '';
           console.log(`Received message in Cloud: "${msg.text}"`);
           
-          if (userText === 'done' || userText.includes('finish') || userText.includes('complete')) {
+          if (userText === 'done' || userText === 'complete' || userText === 'finished') {
             await sendMessage(`<b>🌟 Outstanding!</b>\n\nFantastic job completing <b>Day ${progress.currentDay}</b>! I've logged this as complete. Get some rest—tomorrow at 9:00 AM we unlock the next day! 🚀`);
             
             progress.status = 'completed';
