@@ -218,17 +218,15 @@ ${dayContent}
 
 CRITICAL CAPABILITIES:
 1. **General & Tech Knowledge**: You can answer general questions on any topic, explain complex engineering concepts, and troubleshoot system code.
-2. **Deep Research & Accuracy**: You have access to Google Search. Perform thorough research to ensure your facts, instructions, and code blocks represent the absolute highest modern standards.
+2. **Exemplary Modern Standards**: Ensure all facts, instructions, and code blocks represent the absolute highest modern technical standards.
 3. **Speed & Readability**: Keep your responses concise, highly structured, and fast to read. Avoid long filler text.
 4. **HTML Formatting Terminology**: 
    - Use HTML tags compatible with Telegram: <b>bold</b>, <i>italic</i>, <code>code</code>, <pre>code blocks</pre>, and <a href="url">links</a>.
-   - Do NOT use markdown symbols (like **, *, \`\`, \`\`\`) in your response; always output clean, well-formatted Telegram HTML instead.
-   - If you perform a Google Search, embed your source citations naturally as inline HTML links (e.g. <a href="source-url">source title</a> or <a href="source-url">[source]</a>) rather than raw URLs or unlinked brackets.`;
+   - Do NOT use markdown symbols (like **, *, \`\`, \`\`\`) in your response; always output clean, well-formatted Telegram HTML instead.`;
 
   const requestBody = {
     contents: [{ parts: [{ text: userPrompt }] }],
-    systemInstruction: { parts: [{ text: systemInstruction }] },
-    tools: [{ google_search: {} }] // 🌐 Enable Google Search Grounding for thorough research!
+    systemInstruction: { parts: [{ text: systemInstruction }] }
   };
 
   try {
