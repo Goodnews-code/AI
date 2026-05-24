@@ -241,14 +241,31 @@ CRITICAL CAPABILITIES:
   }
 }
 
-// Defensive cleanup to ensure markdown doesn't break the Telegram API HTML parsing
+// Defensive cleanup to ensure HTML output is 100% compliant with Telegram's strict HTML parser
 function cleanGeminiOutput(text) {
   let cleaned = text;
+  
+  // 1. Convert standard markdown code blocks to pre blocks
   cleaned = cleaned.replace(/```(\w*)\n([\s\S]*?)```/g, (match, lang, code) => `<pre><code>${code.trim()}</code></pre>`);
+  
+  // 2. Convert markdown bold/italic/code
   cleaned = cleaned.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>');
   cleaned = cleaned.replace(/\*(.*?)\*/g, '<i>$1</i>');
   cleaned = cleaned.replace(/`(.*?)`/g, '<code>$1</code>');
-  return cleaned;
+  
+  // 3. Convert headers <h1>-<h6> to <b>
+  cleaned = cleaned.replace(/<h[1-6]>(.*?)<\/h[1-6]>/gi, '<b>$1</b>');
+  
+  // 4. Convert <li>...</li> to bullet points
+  cleaned = cleaned.replace(/<li>(.*?)<\/li>/gi, '• $1\n');
+  
+  // 5. Convert paragraphs <p>...</p> to block formatting with double newlines
+  cleaned = cleaned.replace(/<p>(.*?)<\/p>/gi, '$1\n\n');
+  
+  // 6. Strip all other unsupported HTML block elements (ul, ol, div, span, etc.)
+  cleaned = cleaned.replace(/<\/?(ul|ol|div|span|section|article|header|footer)>/gi, '');
+  
+  return cleaned.trim();
 }
 
 // Extract a specific day's content from the markdown file
